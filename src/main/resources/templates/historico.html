@@ -1,0 +1,250 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Información en tiempo real Dragueo, Autodromo las Americas">
+    <meta name="author" content="coreyes">
+
+    <title>Dragueo</title>
+
+    <link rel="stylesheet" href="/webjars/bootstrap/4.5.3/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/webjars/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/dragueo.css">
+    <link rel="stylesheet" href="/css/fonts.css">
+  </head>
+
+  <body id="body-container" class="d-flex flex-column min-vh-100">
+  	<div class="modal fade" id="print" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-dragueo">
+            <h4 class="modal-title logo">Dragueo</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		      <span aria-hidden="true">&times;</span>
+		    </button>
+          </div>
+          <div class="modal-body container" style="color: #000000;">
+          <div class="row">
+            <div class="col-sm text-center" id="driverLeft">-</div>
+            <div class="col-sm text-center">&nbsp;</div>
+            <div class="col-sm text-center" id="driverRight">-</div>
+          </div>
+          <div class="row">
+            <div class="col-sm text-center"><img id="flagLeft" class="flag"/></div>
+            <div class="col-sm text-center">&nbsp;</div>
+            <div class="col-sm text-center"><img id="flagRight" class="flag"/></div>
+          </div>
+          <div class="row">
+            <div class="col-sm text-center" id="entryLeft">-</div>
+            <div class="col-sm text-center">Entry</div>
+            <div class="col-sm text-center" id="entryRight">-</div>
+          </div>
+          <div class="row">
+            <div class="col-sm text-center" id="treespeedLeft">-</div>
+            <div class="col-sm text-center">TREE&nbsp;SPEED</div>
+            <div class="col-sm text-center" id="treespeedRight">-</div>
+          </div>
+          <div class="row">
+            <div class="col-sm text-center" id="dialinLeft">-</div>
+            <div class="col-sm text-center">DIAL-IN</div>
+            <div class="col-sm text-center" id="dialinRight">-</div>
+          </div>
+          <div class="row">
+            <div class="col-sm text-center" id="reactionLeft">-</div>
+            <div class="col-sm text-center">REACTION</div>
+            <div class="col-sm text-center" id="reactionRight">-</div>
+          </div>
+          <div class="row">
+            <div class="col-sm text-center" id="ft60Left">-</div>
+            <div class="col-sm text-center">60</div>
+            <div class="col-sm text-center" id="ft60Right">-</div>
+          </div>
+          <div class="row">
+            <div class="col-sm text-center" id="ft330Left">-</div>
+            <div class="col-sm text-center">330</div>
+            <div class="col-sm text-center" id="ft330Right">-</div>
+          </div>
+          <div class="row">
+            <div class="col-sm text-center" id="ft660Left">-</div>
+            <div class="col-sm text-center">660</div>
+            <div class="col-sm text-center" id="ft660Right">-</div>
+          </div>
+          <div class="row">
+            <div class="col-sm text-center" id="mph1Left">-</div>
+            <div class="col-sm text-center">MPH1</div>
+            <div class="col-sm text-center" id="mph1Right">-</div>
+          </div>
+          <div class="row">
+            <div class="col-sm text-center" id="ft1320Left">-</div>
+            <div class="col-sm text-center">1320</div>
+            <div class="col-sm text-center" id="ft1320Right">-</div>
+          </div>
+          <div class="row">
+            <div class="col-sm text-center" id="mphLeft">-</div>
+            <div class="col-sm text-center">MPH</div>
+            <div class="col-sm text-center" id="mphRight">-</div>
+          </div>
+          <div class="row">
+            <div class="col-sm text-center" id="winnerLeft">-</div>
+            <div class="col-sm text-center">&nbsp;</div>
+            <div class="col-sm text-center" id="winnerRight">-</div>
+          </div>
+          <div class="row">
+            <div class="col-sm text-center" id="firstLeft">-</div>
+            <div class="col-sm text-center">FIRST</div>
+            <div class="col-sm text-center" id="firstRight">-</div>
+          </div>
+            <div class="row">
+            <div class="col-sm text-center" id="statusLeft">-</div>
+            <div class="col-sm text-center">STATUS</div>
+            <div class="col-sm text-center" id="statusRight">-</div>
+          </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <header>
+		<nav class="navbar navbar-expand-md navbar-dark bg-dragueo fixed-top nav-masthead">
+			<h3 class="masthead-brand logo">DRAGUEO</h3>
+		    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsDefault" aria-controls="navbarsDefault" aria-expanded="false" aria-label="Toggle navigation">
+		      <span class="navbar-toggler-icon"></span>
+		    </button>
+		    <div class="collapse navbar-collapse ml-4" id="navbarsDefault">
+		      <ul class="navbar-nav mr-auto">
+		        <li class="nav-item">
+		          <a class="nav-link" href="/">Inicio</a>
+		        </li>
+		        <li class="nav-item">
+		          <a class="nav-link" href="/semaforo">Sem&aacute;foro</a>
+		        </li>
+		        <li class="nav-item">
+		          <a class="nav-link active" href="/historico">Hist&oacute;rico <span class="sr-only">(current)</span></a>
+		        </li>
+		        <li class="nav-item">
+		          <a class="nav-link" href="/top">Top</a>
+		        </li>
+		      </ul>
+		    </div>
+		</nav>
+	</header>
+	
+	<main role="main" class="container">
+		<h1>Hist&oacute;rico</h1>
+		<div class="container">
+			<blockquote class="blockquote">
+				<p class="mb-0">
+					Puedes encontrar también el historial de las carreras de eventos pasados para tener información que dese. La información guardada en nuestra base de datos es a partir de la fecha 04/05/2014.
+				</p>
+			</blockquote>
+			<div>
+				<form>
+					<div class="form-group row">
+						<label for="fecha" class="col-sm-4 col-form-label"><b>Seleccione la fecha que desea ver:</b></label>
+						<div class="col-sm-8">
+							<select class="form-control selectpicker" data-live-search="true" id="fecha">
+								<option data-icon="fa fa-calendar">Fecha</option>
+								<th:block th:each="date: ${dates}">
+									<option th:text="${date.fecha + ' ' + date.evento}" th:value="${date.fecha}"></option>
+								</th:block>
+							</select>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		
+		<div class="container" th:if="${times != null}" th:style="'display: show; padding-top: 25px;'" style="display: none;">
+			<div class="form-group has-search add-on col-md-2 float-right pr-0">
+				<span class="fa fa-search form-control-feedback"></span>
+          		<input id="search" type="search" class="form-control" placeholder="Buscar" />
+        	</div>
+        	<div>
+			<table class="table table-striped-2">
+	  			<thead class="thead-dark">
+	    			<tr>
+	      				<th scope="col">Hora</th>
+	      				<th scope="col">#</th>
+	      				<th scope="col">RT</th>
+	      				<th scope="col">60'</th>
+						<th scope="col">Mph</th>
+						<th scope="col">1320'</th>
+	    			</tr>
+	  			</thead>
+	  			<tbody id="times">
+	    			<th:block th:each="time: ${times}">
+	    				<tr th:id="${time.time}">
+	    					<td th:text="${time.fecha}"></td>
+	    					<td>
+	    						<span th:text="${time.entryLeft}"></span>
+	    						<span th:if="${time.driverLeft}" th:text="${' - ' + time.driverLeft}"></span>
+	    					</td>
+	    					<td th:text="${time.reactionLeft}"></td>
+	    					<td th:text="${time.ft60Left}"></td>
+	    					<td th:text="${time.mphLeft}"></td>
+	    					<th:block th:switch="${time.statusLeft}">
+	    						<td th:case="'RED'" th:style="'color: red; font-weight: bold;'">
+	    							<span th:text="${((time.ft660Left > 0 || time.ft660Right > 0) && (time.ft1320Left == 0 && time.ft1320Right == 0)) ? time.ft660Left + ' *' : time.ft1320Left}"></span>
+	    							<span th:if="${time.firstLeft != '' || time.statusRight != ''}" th:text="${'(W)'}" style="color: green; font-weight: bold;"></span>
+	    						</td>
+	    						<td th:case="*">
+	    							<span th:text="${((time.ft660Left > 0 || time.ft660Right > 0) && (time.ft1320Left == 0 && time.ft1320Right == 0)) ? time.ft660Left + ' *' : time.ft1320Left}"></span>
+	    							<span th:if="${time.firstLeft != '' || time.statusRight != ''}" th:text="${'(W)'}" style="color: green; font-weight: bold;"></span>
+	    						</td>
+	    					</th:block>
+	    				</tr>
+	    				<tr th:id="${time.time}">
+	    					<td th:text="${time.fecha}"></td>
+	    					<td>
+	    						<span th:text="${time.entryRight}"></span>
+	    						<span th:if="${time.driverRight}" th:text="${' - ' + time.driverRight}"></span>
+	    					</td>
+	    					<td th:text="${time.reactionRight}"></td>
+	    					<td th:text="${time.ft60Right}"></td>
+	    					<td th:text="${time.mphRight}"></td>
+	    					<th:block th:switch="${time.statusRight}">
+		    					<td th:case="'RED'" th:style="'color: red; font-weight: bold;'">
+		    						<span th:text="${((time.ft660Left > 0 || time.ft660Right > 0) && (time.ft1320Left == 0 && time.ft1320Right == 0)) ? time.ft660Right + ' *' : time.ft1320Right}"></span>
+		    						<span th:if="${time.firstRight != '' || time.statusLeft != ''}" th:text="${'(W)'}" style="color: green; font-weight: bold;"></span>
+		    					</td>
+		    					<td th:case="*">
+		    						<span th:text="${((time.ft660Left > 0 || time.ft660Right > 0) && (time.ft1320Left == 0 && time.ft1320Right == 0)) ? time.ft660Right + ' *' : time.ft1320Right}"></span>
+		    						<span th:if="${time.firstRight != '' || time.statusLeft != ''}" th:text="${'(W)'}" style="color: green; font-weight: bold;"></span>
+		    					</td>
+	    					</th:block>
+	    				</tr>
+	    			</th:block>
+	    		</tbody>
+			</table>
+			</div>
+		</div>
+	</main>
+	
+	<footer class="mt-auto">
+		<div class="inner text-center">
+          <p>&copy; Dragueo 2014.</p>
+        </div>
+	</footer>
+    
+    <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+    <script src="//getbootstrap.com/docs/4.0/assets/js/vendor/popper.min.js"></script>
+    <script src="/webjars/bootstrap/4.5.3/js/bootstrap.min.js"></script>
+    <script src="/js/dragueo.js"></script>
+    <script>
+    	$(function(){
+			$('#fecha').on('change', function() {
+				var fecha = $(this).val();
+				if(fecha) {
+		  			window.location = '/historico/' + fecha;
+				}
+			});
+			
+			$('#times tr').click(function() { showPrint(this) });
+    	});
+	</script>	
+  </body>
+</html>

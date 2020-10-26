@@ -1,0 +1,13 @@
+@font-face {
+    font-family: DSfont;
+	src: url('/fonts/DS-DIGIB.TTF') format('truetype'),
+	     url('/fonts/digital.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Bebas Neue Bold';
+	src: url('/fonts/BebasNeueBold.otf') format('opentype'),
+		 url('/fonts/BebasNeueBold.ttf') format('truetype');
+}
