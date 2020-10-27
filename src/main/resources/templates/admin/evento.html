@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Información en tiempo real Dragueo, Autodromo las Americas">
+    <meta name="author" content="coreyes">
+
+    <title>Dragueo</title>
+
+    <link rel="stylesheet" href="/webjars/bootstrap/4.5.3/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/webjars/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/webjars/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="/css/dragueo.css">
+    <link rel="stylesheet" href="/css/fonts.css">
+  </head>
+
+  <body id="body-container" class="d-flex flex-column min-vh-100">
+  	<div class="modal fade" id="evento" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  	  <form method="post" th:action="@{/admin/evento}" autocomplete="off">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-dragueo">
+            <h4 class="modal-title logo">Dragueo</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		      <span aria-hidden="true">&times;</span>
+		    </button>
+          </div>
+          <div class="modal-body container" style="color: #000000;">
+          	<div class="form-group">
+    	        <label class="col-sm-2 control-label">Fecha</label>
+    	        <div class="col-xs-4">
+      	          <input type="text" class="form-control" id="fecha" name="fecha" placeholder="dd/mm/yy">
+    	        </div>
+  	      	</div>
+  	      	<div class="form-group">
+    	        <label class="col-sm-2 control-label">Evento</label>
+    	        <div class="col-xs-4">
+      	          <input type="text" class="form-control" id="evento" name="evento" placeholder="Evento">
+    	        </div>
+              </div>
+		  </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+      </form>
+    </div>
+    <header>
+		<nav class="navbar navbar-expand-md navbar-dark bg-dragueo fixed-top nav-masthead">
+			<h3 class="masthead-brand logo">DRAGUEO</h3>
+		    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsDefault" aria-controls="navbarsDefault" aria-expanded="false" aria-label="Toggle navigation">
+		      <span class="navbar-toggler-icon"></span>
+		    </button>
+		    <div class="collapse navbar-collapse ml-4" id="navbarsDefault">
+		      <ul class="navbar-nav mr-auto">
+		        <li class="nav-item">
+		          <a class="nav-link" href="/">Inicio</a>
+		        </li>
+		        <li class="nav-item">
+		          <a class="nav-link active" href="#">Eventos <span class="sr-only">(current)</span></a>
+		        </li>
+		        <li class="nav-item">
+		          <a class="nav-link" href="/admin/piloto">Pilotos</a>
+		        </li>
+		      </ul>
+		    </div>
+		</nav>
+	</header>
+	
+	<main role="main" class="container">
+		<h1>Eventos</h1>
+		<div>
+			<div class="form-group row">
+				<div class="col-sm-4">
+					<button type="button" class="btn btn-success" data-toggle="modal" data-target="#evento">
+  						Agregar evento
+					</button>
+				</div>
+			</div>
+		</div>
+		<div th:if="${msg != null}" th:classappend="${msg.classname}" th:text="${msg.text}" th:style="'display: show; margin-top: 50px;'" role="alert" class="alert" style="display: none;">
+		</div>
+		<div class="container" th:if="${eventos != null}" th:style="'display: show; padding-top: 25px;'" style="display: none;">
+			<div class="form-group has-search add-on col-md-2 float-right pr-0">
+				<span class="fa fa-search form-control-feedback"></span>
+          		<input id="search" type="search" class="form-control" placeholder="Buscar" autocomplete="off"/>
+        	</div>
+        	<div>
+			<table class="table table-striped">
+	  			<thead class="thead-dark">
+	    			<tr>
+	      				<th scope="col">Fecha</th>
+	      				<th scope="col">Evento</th>
+	      				<th scope="col"></th>
+	    			</tr>
+	  			</thead>
+	  			<tbody id="eventos">
+	    			<th:block th:each="evento: ${eventos}">
+	    				<tr th:id="${evento.id}">
+	    					<td th:text="${evento.fecha}"></td>
+	    					<td th:text="${evento.evento}"></td>
+	    					<td style="text-align: center; vertical-align: middle;">
+	    						<a th:href="'/admin/evento/d/' + ${evento.id}">	
+	    							<button class="btn btn-danger"><span class="fa fa-trash"></span></button>
+	    						</a>
+	    					</td>
+	    				</tr>
+	    			</th:block>
+	    		</tbody>
+			</table>
+			</div>
+		</div>
+	</main>
+	
+	<footer class="mt-auto">
+		<div class="inner text-center">
+          <p>&copy; Dragueo 2014.</p>
+        </div>
+	</footer>
+    
+    <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+    <script src="//getbootstrap.com/docs/4.0/assets/js/vendor/popper.min.js"></script>
+    <script src="/webjars/bootstrap/4.5.3/js/bootstrap.min.js"></script>
+    <script src="/webjars/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script>
+	    $("#search").on("keyup", function() {
+	      var value = $(this).val();
+		  $("#eventos tr").each(function(index) {
+			  $row = $(this);
+		      var fecha = $row.find("td:first").text().toLowerCase();
+		      var evento = $row.find("td").eq(1).text().toLowerCase();
+		      if( fecha.match(value.toLowerCase()) || 
+		          evento.match(value.toLowerCase()) ) {
+		          $row.show();
+		      }else{
+		          $row.hide();
+		      }
+		  });
+	    });
+	    
+	    $('#fecha').datepicker({
+	        format: 'dd/mm/yy'
+	    });
+    </script>
+  </body>
+</html>
