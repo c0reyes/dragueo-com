@@ -53,7 +53,7 @@ public class DragueoRestController {
 				@RequestParam(name = "statusRight", required = false, defaultValue = "") String statusRight, 
 				@RequestParam(name = "fecha", required = false, defaultValue = "") String fecha) {
 		  
-	    this.template.convertAndSend("/dragtree/msg", timeService.save(new Time(entryLeft, entryRight, treespeedLeft, treespeedRight, dialinLeft, 
+	    this.template.convertAndSend("/dragtree/race", timeService.save(new Time(entryLeft, entryRight, treespeedLeft, treespeedRight, dialinLeft, 
 				dialinRight, reactionLeft, reactionRight, ft60Left, ft60Right, 
 				ft330Left, ft330Right, ft660Left, ft660Right, mph1Left, mph1Right, 
 				ft1320Left, ft1320Right, mphLeft, mphRight, firstLeft, firstRight, 

@@ -397,7 +397,7 @@ function display(ft660Left, ft660Right, ft1320Left, ft1320Right) {
 	ctx.fill();
 
 	//ctx.fillStyle = "rgba(7, 0, 0, 0.5)";
-        ctx.fillRect(x_display2, y_display2, 250, 170);
+    ctx.fillRect(x_display2, y_display2, 250, 170);
 	ctx.fill();
 
 	ctx.fillRect(10,195,160,150);
@@ -633,7 +633,7 @@ function timesData(time) {
             times(lastTime.entryLeft, lastTime.entryRight, lastTime.reactionLeft, lastTime.reactionRight, 
                   lastTime.ft60Left, lastTime.ft60Right, lastTime.ft1320Left, lastTime.ft1320Right, 
                   lastTime.mphLeft, lastTime.mphRight, lastTime.driverLeft, lastTime.driverRight, 
-                  lastTime.carLeft, lastTime.carRight, lastTime.flagLeft, lastTime.flagRight, lastTime.ft660Left, lastTime.ft660Right);
+                  lastTime.carLeft, lastTime.carRight, lastTime.countryLeft, lastTime.countryRight, lastTime.ft660Left, lastTime.ft660Right);
 
             if(lastTime.firstLeft) {
                 leftWin(lastTime.statusRight);
@@ -669,7 +669,7 @@ function stompConnect() {
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         console.log('Connected: ' + frame);
-        stompClient.subscribe('/dragtree/msg', function (time) {
+        stompClient.subscribe('/dragtree/race', function (time) {
 			timesData(JSON.parse(time.body));
         });
     }, stompFailureCallback);
