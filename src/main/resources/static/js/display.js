@@ -450,13 +450,33 @@ function displayClean() {
 }
 
 function timesClean() {
-	times("0", "0", "0.000", "0.000", "0.000", "0.000", "0.000", "0.000", "0.000", "0.000","Piloto","Piloto","Carro","Carro","","", "0.000", "0.000");
+	time = {
+		"entryLeft":"0",
+		"entryRight":"0",
+		"reactionLeft":"0.000",
+		"reactionRight":"0.000",
+		"ft60Left":"0.000",
+		"ft60Right":"0.000",
+		"ft1320Left":"0.000",
+		"ft1320Right":"0.000",
+		"mphLeft":"000",
+		"mphRight":"000",
+		"driverLeft":"",
+		"driverRight":"",
+		"carLeft":"",
+		"carRight":"",
+		"flagLeft":"",
+		"flagRight":"",
+		"ft660Left":"0.000",
+		"ft660Rigt":"0.000"
+	};
+	times(time);
 }
 
-function times(entryLeft, entryRight, reactionLeft, reactionRight, ft60Left, ft60Right, ft1320Left, ft1320Right, mphLeft, mphRight, pilotoLeft, pilotoRight, carLeft, carRight, flagLeft, flagRight, ft660Left, ft660Right) {
+function times(time) {
 	var _18mile = false;
-	if( (parseFloat(ft660Left) > 0 || parseFloat(ft660Right) > 0)
-		&& (parseFloat(ft1320Left) == 0 && parseFloat(ft1320Right) == 0)) {
+	if( (parseFloat(time.ft660Left) > 0 || parseFloat(time.ft660Right) > 0)
+		&& (parseFloat(time.ft1320Left) == 0 && parseFloat(time.ft1320Right) == 0)) {
 		_18mile = true;
 	}
 	var canvas = document.getElementById('canvas');
@@ -472,25 +492,25 @@ function times(entryLeft, entryRight, reactionLeft, reactionRight, ft60Left, ft6
 	ctx.shadowBlur = 8;
 
 	// Izquierdo
-	ctx.fillText(entryLeft, x_entry1, y_entry1);
-        ctx.fillText(reactionLeft, x_react1, y_react1);
-	ctx.fillText(ft60Left, x_ft601, y_ft601);
-	ctx.fillText(mphLeft, x_mph1, y_mph1);
+	ctx.fillText(time.entryLeft, x_entry1, y_entry1);
+    ctx.fillText(time.reactionLeft, x_react1, y_react1);
+	ctx.fillText(time.ft60Left, x_ft601, y_ft601);
+	ctx.fillText(time.mphLeft, x_mph1, y_mph1);
 	if(_18mile) {
-		ctx.fillText(ft660Left, x_ft13201, y_ft13201);
+		ctx.fillText(time.ft660Left, x_ft13201, y_ft13201);
 	}else{		
-		ctx.fillText(ft1320Left, x_ft13201, y_ft13201);
+		ctx.fillText(time.ft1320Left, x_ft13201, y_ft13201);
 	}
 
 	// Derecho
-	ctx.fillText(entryRight, x_entry2, y_entry2);
-        ctx.fillText(reactionRight, x_react2, y_react2);
-	ctx.fillText(ft60Right, x_ft602, y_ft602);
-	ctx.fillText(mphRight, x_mph2, y_mph2);
+	ctx.fillText(time.entryRight, x_entry2, y_entry2);
+    ctx.fillText(time.reactionRight, x_react2, y_react2);
+	ctx.fillText(time.ft60Right, x_ft602, y_ft602);
+	ctx.fillText(time.mphRight, x_mph2, y_mph2);
 	if(_18mile) {
-		ctx.fillText(ft660Right, x_ft13202, y_ft13202);
+		ctx.fillText(time.ft660Right, x_ft13202, y_ft13202);
 	}else{
-		ctx.fillText(ft1320Right, x_ft13202, y_ft13202);
+		ctx.fillText(time.ft1320Right, x_ft13202, y_ft13202);
 	}
 
 	ctx.fillStyle = "white";
@@ -501,23 +521,23 @@ function times(entryLeft, entryRight, reactionLeft, reactionRight, ft60Left, ft6
 	ctx.shadowBlur = 4;
 
 	// Pilotos
-	ctx.fillText((formatName(pilotoLeft)||''), 20, 240);
-	ctx.fillText((formatName(pilotoRight)||''), 440, 240);
+	ctx.fillText((formatName(time.driverLeft)||''), 20, 240);
+	ctx.fillText((formatName(time.driverRight)||''), 440, 240);
 
 	// Carros
-	ctx.fillText((formatName(carLeft)||''), 20, 283);
-	ctx.fillText((formatName(carRight)||''), 440, 283);
+	ctx.fillText((formatName(time.carLeft)||''), 20, 283);
+	ctx.fillText((formatName(time.carRight)||''), 440, 283);
 
 	// flags
-	if(flagLeft) {
+	if(time.countryLeft) {
 		var flag1 = new Image();
-		flag1.src = 'images/flags/' + flagLeft + '.png';
+		flag1.src = 'images/flags/' + time.countryLeft + '.png';
 		ctx.drawImage(flag1, 70, 300, 50, 30);
 	}
 
-	if(flagRight) {
+	if(time.countryRight) {
 		var flag2 = new Image();
-		flag2.src = 'images/flags/' + flagRight + '.png';
+		flag2.src = 'images/flags/' + time.countryRight + '.png';
 		 ctx.drawImage(flag2, 490, 300, 50, 30);
 	}
 
@@ -630,10 +650,7 @@ function timesData(time) {
         display(lastTime.ft660Left, lastTime.ft660Right, lastTime.ft1320Left, lastTime.ft1320Right);
         prolight(lastTime.statusLeft, lastTime.statusRight);
         setTimeout(function () {
-            times(lastTime.entryLeft, lastTime.entryRight, lastTime.reactionLeft, lastTime.reactionRight, 
-                  lastTime.ft60Left, lastTime.ft60Right, lastTime.ft1320Left, lastTime.ft1320Right, 
-                  lastTime.mphLeft, lastTime.mphRight, lastTime.driverLeft, lastTime.driverRight, 
-                  lastTime.carLeft, lastTime.carRight, lastTime.countryLeft, lastTime.countryRight, lastTime.ft660Left, lastTime.ft660Right);
+            times(lastTime);
 
             if(lastTime.firstLeft) {
                 leftWin(lastTime.statusRight);
