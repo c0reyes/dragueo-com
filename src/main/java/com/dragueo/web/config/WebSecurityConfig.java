@@ -20,13 +20,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Value("${http.auth.pass}")
 	private String httpPass;
+	
+	@Value("${http.auth.admin.user}")
+	private String adminUser;
+	
+	@Value("${http.auth.admin.pass}")
+	private String adminPass;
 	  
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 	    http.authorizeRequests()
-	    	.antMatchers("/api/v1/dragtree/add")
-	    	.hasRole("USER")
-	    	//.authenticated()
+	    	.antMatchers("/api/v1/dragtree/add").hasRole("USER")
+	    	.antMatchers("/admin/**").hasRole("ADMIN")
 	    	.and()
             .httpBasic()
 		    .realmName("Dragueo");
@@ -36,10 +41,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public UserDetailsService userDetailsService() {
 		InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+        
+		manager.createUser(User
+				.withUsername(httpUser)
+				.password(encoder().encode(httpPass))
+				.roles("USER").build());
+        
         manager.createUser(User
-          .withUsername(httpUser)
-          .password(encoder().encode(httpPass))
-          .roles("USER").build());
+                .withUsername(adminUser)
+                .password(encoder().encode(adminPass))
+                .roles("ADMIN").build());
+        
         return manager;
 	}
 	
