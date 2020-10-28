@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Información en tiempo real Dragueo, Autodromo las Americas">
+    <meta name="author" content="coreyes">
+
+    <title>Dragueo</title>
+
+    <link rel="stylesheet" href="/webjars/bootstrap/4.5.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/signin.css">
+  </head>
+
+  <body>
+    <div class="text-center">
+      	<form class="form-signin" method="post" name="f" th:action="@{/admin/login}" autocomplete="off">
+      		<h1 class="h3 mb-3 font-weight-normal">Dragueo</h1>
+      		<fieldset>
+                <div th:if="${param.error}" class="alert alert-danger">    
+                    Invalid username and password.
+                </div>
+                <div th:if="${param.logout}" class="alert alert-success"> 
+                    You have been logged out.
+                </div>
+                <label for="username" class="sr-only">Username</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Usuario"/>        
+                <label for="password" class="sr-only">Password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password"/>    
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-lg btn-primary btn-block">Log in</button>
+                </div>
+      		</fieldset>
+    	</form>
+    </div>
+
+    <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+    <script src="//getbootstrap.com/docs/4.0/assets/js/vendor/popper.min.js"></script>
+    <script src="/webjars/bootstrap/4.5.3/js/bootstrap.min.js"></script>
+  </body>
+</html>

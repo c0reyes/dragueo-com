@@ -3,6 +3,7 @@ package com.dragueo.web.config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -12,9 +13,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
-@Configuration
 @EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig {
 	@Value("${http.auth.user}")
 	private String httpUser;
 	
@@ -26,20 +26,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Value("${http.auth.admin.pass}")
 	private String adminPass;
-	  
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-	    http.authorizeRequests()
-	    	.antMatchers("/api/v1/dragtree/add").hasRole("USER")
-	    	.antMatchers("/admin/**").hasRole("ADMIN")
-	    	.and()
-            .httpBasic()
-		    .realmName("Dragueo");
-	}
 	
 	@Bean
-	@Override
-	public UserDetailsService userDetailsService() {
+	public UserDetailsService userDetailsService() throws Exception {
 		InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
         
 		manager.createUser(User
@@ -59,4 +48,36 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
+	
+	@Configuration
+	@Order(1)
+	public static class ApiWebSecurityConfiguration extends WebSecurityConfigurerAdapter {
+		protected void configure(HttpSecurity http) throws Exception {
+		    http.antMatcher("/api/v1/dragtree/add")
+		    	.authorizeRequests()
+		    	.anyRequest()
+		    	.hasRole("USER")
+		    	.and()
+	            .httpBasic();
+		}
+	}
+	
+	@Configuration
+	public static class FormLoginSecurityConfiguration extends WebSecurityConfigurerAdapter {
+		@Override
+		protected void configure(HttpSecurity http) throws Exception {
+		    http.authorizeRequests()
+		    	.antMatchers("/admin/**").hasRole("ADMIN")
+		    	.and()
+		    	.formLogin()
+		    	.loginPage("/admin/login").permitAll()
+		    	.defaultSuccessUrl("/admin/")
+	            .and()
+	            .logout()
+	            .logoutUrl("/admin/logout")
+	            .logoutSuccessUrl("/admin/login?logout")
+	            .deleteCookies("JSESSIONID")
+	            .invalidateHttpSession(true);
+		}
+	}
 }
